@@ -1,0 +1,69 @@
+<div class="modal fade" id="js-modal-edit-costumer" tabindex="-1" role="dialog" aria-labelledby="modalEditCostumer"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCourseTitle">
+                    Costumer
+                    {% verbatim %}
+                    {{ costumer.id }} {{ costumer.name }}
+                    {% endverbatim %}
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mt">
+                    <div class="col-lg-12">
+                        <div class="form-panel">
+                            <h4 class="mb">
+                                Edit costumer
+                            </h4>
+                            <form>
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <div class="col-sm-10">
+                                        {% verbatim %}
+                                        <input type="text" name="name" class="form-control" ng-model="costumer.name">
+                                        <small ng-if="errors.name" class="form-text text-danger">
+                                            {{ errors.name[0] }}
+                                        </small>
+                                        {% endverbatim %}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-10 control-label">City</label>
+                                    <div class="col-sm-10">
+                                        {% verbatim %}
+                                        <input type="text" name="city" class="form-control" ng-model="costumer.city">
+                                        <small ng-if="errors.city" class="form-text text-danger">
+                                            {{ errors.city[0] }}
+                                        </small>
+                                        {% endverbatim %}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Age</label>
+                                    <div class="col-sm-10">
+                                        {% verbatim %}
+                                        <input type="text" name="number" class="form-control" ng-model="costumer.age">
+                                        <small ng-if="errors.age" class="form-text text-danger">
+                                            {{ errors.age[0] }}
+                                        </small>
+                                        {% endverbatim %}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" ng-click="cleanCostumer(costumer)" class="btn btn-secondary"
+                    data-dismiss="modal">Cancel</button>
+                <button type="button" ng-click="saveCostumer(costumer)" class="btn btn-success">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

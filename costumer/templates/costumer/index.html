@@ -1,0 +1,95 @@
+{% extends 'costumer/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="col-lg-12">
+    <div ng-app="costumer.app.static" ng-controller="CostumerController">
+    <div class="row mb-2">
+        <div class="col-sm-6">
+        <label>Search:<input ng-change="searchCostumers(search)"
+        ng-model="search" type="search" class="" placeholder=""></label>
+        </div>
+        <div class="col-sm-6 text-right">
+        <button class="btn btn-primary btn-xs" data-toggle="modal"
+            data-target="#js-modal-edit-costumer" ng-click="cleanCostumer()">New costumer</button>
+        </div>
+    </div>
+    <div ng-if="costumerUpdated" class="alert alert-success" role="alert" ng-click="closeAlert()">
+        Costumer {% verbatim %} {{ costumer.name }} {% endverbatim %} succesfully updated!
+    </div>
+    <div ng-if="costumerDeleted" class="alert alert-success" role="alert" ng-click="closeAlert()">
+        Costumer succesfully updated!
+    </div>
+    <div class="row">
+        <table class="table row-border hover">
+            <thead>
+                <tr>
+                    <th ng-click="sortColumn('id')">ID<i class="fa fa-fw fa-sort" ng-class="sortIcon.id"></i></th>
+                    <th ng-click="sortColumn('name')">Name<i class="fa fa-fw fa-sort" ng-class="sortIcon.name"></th>
+                    <th ng-click="sortColumn('city')">City<i class="fa fa-fw fa-sort" ng-class="sortIcon.city"></th>
+                    <th ng-click="sortColumn('age')">Age<i class="fa fa-fw fa-sort" ng-class="sortIcon.age"></th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="costumer in costumers">
+                    {% verbatim %}
+                        <td>{{ costumer.id }}</td>
+                        <td>{{ costumer.name }}</td>
+                        <td>{{ costumer.city }}</td>
+                        <td>{{ costumer.age }}</td>
+                    {% endverbatim %}
+                    <td class="text-center">
+                        <button class="btn btn-primary btn-xs" data-toggle="modal"
+                            data-target="#js-modal-edit-costumer" ng-click="getCostumer(costumer.id)">Edit</button>
+                        <button class="btn btn-danger btn-xs" data-toggle="modal"
+                            data-target="#js-modal-delete-costumer" ng-click="getCostumer(costumer.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-5">
+            <div class="dataTables_info" id="example_info" role="status" aria-live="polite">
+                {% verbatim %}
+                    Showing {{ showStart }} to {{ showEnd }} of  {{ totalRecords }} entries
+                {% endverbatim %}
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-7">
+            <div>
+                <ul class="pagination">
+                    <li class="paginate_button page-item previous" ng-class="(page==1)?'disabled':''">
+                        <a href="#" ng-click="goPreviousPage(previousPage)" aria-controls="example" data-dt-idx="{{ previousPage }}" tabindex="0" class="page-link">
+                            Previous
+                        </a>
+                    </li>
+                    <li class="paginate_button page-item active">
+                        <a href="#" aria-controls="example" data-dt-idx="1"
+                        tabindex="0" class="page-link">
+                            {% verbatim %}
+                                {{ page }}
+                            {% endverbatim %}
+                        </a>
+                    </li>
+                    <li class="paginate_button page-item next" ng-class="(page==nextPage)?'disabled':''">
+                        <a href="#" ng-click="goNextPage(nextPage)" aria-controls="example" data-dt-idx="{{ nextPage }}" tabindex="0" class="page-link">
+                            Next
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% include 'costumer/modal_edit.html' %}
+    {% include 'costumer/modal_delete.html' %}
+    </div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="{% static 'costumer/js/jquery.dataTables.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'costumer/js/costumer-app.js' %}"></script>
+{% endblock %}
+
