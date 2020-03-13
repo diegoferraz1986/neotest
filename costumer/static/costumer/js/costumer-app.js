@@ -124,6 +124,7 @@ function CostumerController($scope, $http) {
                 $scope.getCostumers();
                 $scope.errors = {};
                 $('.modal').modal('hide');
+                $scope.costumerUpdated = true;
             }, function errorCallback(res) {
                 if (res) {
                     $scope.errors = res.data;
